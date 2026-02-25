@@ -560,4 +560,4 @@ module_exit(iob_uart16550_exit);
 MODULE_LICENSE("Dual MIT/GPL");
 MODULE_AUTHOR("IObundle");
 MODULE_DESCRIPTION("iob_uart16550 Drivers");
-MODULE_VERSION("0.1.4");
+MODULE_VERSION("0.1.5");

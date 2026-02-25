@@ -3,4 +3,4 @@
 `define IOB_UART16550_ADDR_W 5
 `define IOB_UART16550_DATA_W 32
 // Core Configuration Macros.
-`define IOB_UART16550_VERSION 24'h000104
+`define IOB_UART16550_VERSION 24'h000105

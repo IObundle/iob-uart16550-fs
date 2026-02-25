@@ -353,7 +353,7 @@ module iob_uart16550_csrs #(
 
 
    //NAME: version;
-   //MODE: R; WIDTH: 24; RST_VAL: 000104; ADDR: 8; SPACE (bytes): 4 (max); TYPE: REG. 
+   //MODE: R; WIDTH: 24; RST_VAL: 000105; ADDR: 8; SPACE (bytes): 4 (max); TYPE: REG. 
 
    wire version_addressed_r;
    assign version_addressed_r = (internal_iob_addr_stable>>shift_amount >= (8>>shift_amount)) && (internal_iob_addr_stable>>shift_amount <= iob_max(
@@ -393,7 +393,7 @@ module iob_uart16550_csrs #(
       end
 
       if (version_addressed_r) begin
-         iob_rdata_nxt[0+:32] = 32'h000104 | 32'd0;
+         iob_rdata_nxt[0+:32] = 32'h000105 | 32'd0;
       end
 
 

@@ -6,7 +6,7 @@
 
 NAME=iob_uart16550
 CSR_IF ?=iob
-BUILD_DIR_NAME=iob_uart16550_V0.1.4
+BUILD_DIR_NAME=iob_uart16550_V0.1.5
 IS_FPGA=0
 
 CONFIG_BUILD_DIR = $(dir $(lastword $(MAKEFILE_LIST)))

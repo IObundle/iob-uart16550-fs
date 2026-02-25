@@ -12,7 +12,7 @@ Py2HWSW Version 0.81.0 has generated this code (https://github.com/IObundle/py2h
 	<ipxact:vendor>IObundle</ipxact:vendor>
 	<ipxact:library>IP</ipxact:library>
 	<ipxact:name>IOB-UART16550-IOB</ipxact:name>
-	<ipxact:version>0.1.4</ipxact:version>
+	<ipxact:version>0.1.5</ipxact:version>
 	<ipxact:busInterfaces>
 		<ipxact:busInterface>
 			<ipxact:name>clk_en_rst_s</ipxact:name>
@@ -283,7 +283,7 @@ Py2HWSW Version 0.81.0 has generated this code (https://github.com/IObundle/py2h
 						<ipxact:bitOffset>0</ipxact:bitOffset>
 						<ipxact:resets>
 							<ipxact:reset resetTypeRef="arst_i">
-								<ipxact:value>000104</ipxact:value>
+								<ipxact:value>000105</ipxact:value>
 							</ipxact:reset>
 						</ipxact:resets>
 						<ipxact:bitWidth>24</ipxact:bitWidth>
@@ -592,7 +592,7 @@ Py2HWSW Version 0.81.0 has generated this code (https://github.com/IObundle/py2h
 		<ipxact:parameter kactus2:usageCount="1" parameterId="VERSION_ID" type="string">
 			<ipxact:name>VERSION</ipxact:name>
 			<ipxact:description>Product version in SemVer format. This 24-bit macro uses nibbles to represent decimal numbers using their binary values. The two most significant nibbles represent the major part of the version, followed by two nibbles that represent the minor part. The two least significant nibbles represent the patch version. For example V12.34.56 is represented by 0x123456.</ipxact:description>
-			<ipxact:value>24'h000104</ipxact:value>
+			<ipxact:value>24'h000105</ipxact:value>
 		</ipxact:parameter>
 	</ipxact:parameters>
 	<ipxact:vendorExtensions>

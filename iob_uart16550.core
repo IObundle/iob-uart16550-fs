@@ -1,7 +1,7 @@
 CAPI=2:
 
-name: iobundle:py2hwsw:iob_uart16550:0.1.4
-#license: MIT
+name: iobundle:py2hwsw:iob_uart16550:0.1.5
+license: MIT
 description: "IObundle's adaptation of the UART16550 from: https://opencores.org/projects/uart16550. The original sources for this core and public key signature are available at: https://github.com/IObundle/iob-uart16550."
 
 filesets:
@@ -158,7 +158,7 @@ scripts:
     cmd:
       - make
       - -C
-      - src/iobundle_py2hwsw_iob_uart16550_0.1.4/iob_uart16550/software
+      - src/iobundle_py2hwsw_iob_uart16550_0.1.5/iob_uart16550/software
       - build
       #- USE_FPGA=$(USE_FPGA)
     filesets:
@@ -166,11 +166,11 @@ scripts:
 
   board_client:
     cmd:
-      - src/iobundle_py2hwsw_iob_uart16550_0.1.4/iob_uart16550/scripts/board_client.py
+      - src/iobundle_py2hwsw_iob_uart16550_0.1.5/iob_uart16550/scripts/board_client.py
       - grab
       - "300"
       - -s
       #run the C testbench in background and kill it when simulator exits
-      - "'./src/iobundle_py2hwsw_iob_uart16550_0.1.4/iob_uart16550/software/tb & make run && (kill $$! >/dev/null 2>&1; true) || (kill $$! >/dev/null 2>&1; false)'"
+      - "'./src/iobundle_py2hwsw_iob_uart16550_0.1.5/iob_uart16550/software/tb & make run && (kill $$! >/dev/null 2>&1; true) || (kill $$! >/dev/null 2>&1; false)'"
     filesets:
       - scripts
