@@ -1,0 +1,16 @@
+// SPDX-FileCopyrightText: 2025 IObundle
+//
+// SPDX-License-Identifier: MIT
+
+/* Auto-generated device tree include file (.dtsi) for iob_uart16550 peripheral core.
+ * Include this file in your main SoC device tree.
+ */
+
+&soc {
+    // Include this core as a peripheral of main system labeled 'soc'.
+    INSTANCE_NAME: iob_uart16550@/*INSTANCE_NAME_BASE_MACRO*/ {
+        compatible = "iobundle,uart165500";
+        reg = <0x/*INSTANCE_NAME_BASE_MACRO*/ 0x/*IOB_UART16550_CSRS_ADDR_RANGE_MACRO*/>;
+        
+    };
+};

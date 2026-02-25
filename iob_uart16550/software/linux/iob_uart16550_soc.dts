@@ -1,0 +1,31 @@
+// SPDX-FileCopyrightText: 2025 IObundle
+//
+// SPDX-License-Identifier: MIT
+
+/* Auto-generated device tree file template for a SoC that includes the iob_uart16550 peripheral core. */
+
+/dts-v1/;
+
+// Include peripheral's device tree file
+#include "iob_uart16550.dtsi"
+
+/ {
+    #address-cells = <1>;
+    #size-cells = <1>;
+    model = "IOb-SoC, VexRiscv";
+    compatible = "IOb-SoC, VexRiscv";
+    // CPU
+    // Memory
+    // Choosen
+    soc {
+        #address-cells = <1>;
+        #size-cells = <1>;
+        compatible = "iobundle,iob-soc", "simple-bus";
+        ranges;
+
+        // iob_uart16550 added via #include statement.
+
+        // Other SoC peripherals go here
+
+    };
+};

@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: 2025 IObundle, Lda
+// SPDX-FileCopyrightText: 2026 IObundle, Lda
 //
 // SPDX-License-Identifier: MIT
 //
-// Py2HWSW Version 0.81 has generated this code (https://github.com/IObundle/py2hwsw).
+// Py2HWSW Version 0.81.0 has generated this code (https://github.com/IObundle/py2hwsw).
 
 `timescale 1ns / 1ps
 `include "iob_uut_conf.vh"
@@ -33,6 +33,14 @@ module iob_uut #(
     wire uart16550_0_csrs_iob_rvalid;
     wire [32-1:0] uart16550_0_csrs_iob_rdata;
     wire uart16550_0_csrs_iob_ready;
+// Testbench uart csrs bus
+    wire internal_uart0_iob_valid;
+    wire [5-1:0] internal_uart0_iob_addr;
+    wire [32-1:0] internal_uart0_iob_wdata;
+    wire [32/8-1:0] internal_uart0_iob_wstrb;
+    wire internal_uart0_iob_rvalid;
+    wire [32-1:0] internal_uart0_iob_rdata;
+    wire internal_uart0_iob_ready;
 // UART16550 #0 Interrupt signal
     wire uart16550_0_interrupt;
 // uart16550 #0 RS232 interface
@@ -48,6 +56,14 @@ module iob_uut #(
     wire uart16550_1_csrs_iob_rvalid;
     wire [32-1:0] uart16550_1_csrs_iob_rdata;
     wire uart16550_1_csrs_iob_ready;
+// Testbench uart csrs bus
+    wire internal_uart1_iob_valid;
+    wire [5-1:0] internal_uart1_iob_addr;
+    wire [32-1:0] internal_uart1_iob_wdata;
+    wire [32/8-1:0] internal_uart1_iob_wstrb;
+    wire internal_uart1_iob_rvalid;
+    wire [32-1:0] internal_uart1_iob_rdata;
+    wire internal_uart1_iob_ready;
 // UART16550 #1 Interrupt signal
     wire uart16550_1_interrupt;
 // uart16550 #1 RS232 interface
@@ -63,13 +79,12 @@ module iob_uut #(
         assign uart1_rs232_cts = 1'b1;
             
 
-        // Unit Under Test (UUT) UART16550 instance 0.
-        iob_uart16550 uart16550_inst0 (
-            // clk_en_rst_s port: Clock, clock enable and reset
-        .clk_i(clk_i),
-        .cke_i(cke_i),
-        .arst_i(arst_i),
-        // iob_csrs_cbus_s port: Control and Status Registers interface
+        // Convert IOb port from testbench into correct interface for UART CSRs bus
+        iob_universal_converter_iob_iob #(
+        .ADDR_W(5),
+        .DATA_W(DATA_W)
+    ) iob_universal_converter0 (
+            // s_s port: Subordinate port
         .iob_valid_i(uart16550_0_csrs_iob_valid),
         .iob_addr_i(uart16550_0_csrs_iob_addr),
         .iob_wdata_i(uart16550_0_csrs_iob_wdata),
@@ -77,6 +92,30 @@ module iob_uut #(
         .iob_rvalid_o(uart16550_0_csrs_iob_rvalid),
         .iob_rdata_o(uart16550_0_csrs_iob_rdata),
         .iob_ready_o(uart16550_0_csrs_iob_ready),
+        // m_m port: Manager port
+        .iob_valid_o(internal_uart0_iob_valid),
+        .iob_addr_o(internal_uart0_iob_addr),
+        .iob_wdata_o(internal_uart0_iob_wdata),
+        .iob_wstrb_o(internal_uart0_iob_wstrb),
+        .iob_rvalid_i(internal_uart0_iob_rvalid),
+        .iob_rdata_i(internal_uart0_iob_rdata),
+        .iob_ready_i(internal_uart0_iob_ready)
+        );
+
+            // Unit Under Test (UUT) UART16550 instance 0.
+        iob_uart16550 uart16550_inst0 (
+            // clk_en_rst_s port: Clock, clock enable and reset
+        .clk_i(clk_i),
+        .cke_i(cke_i),
+        .arst_i(arst_i),
+        // csrs_cbus_s port: Control and status interface, when selecting the IOb CSR interface.
+        .iob_valid_i(internal_uart0_iob_valid),
+        .iob_addr_i(internal_uart0_iob_addr),
+        .iob_wdata_i(internal_uart0_iob_wdata),
+        .iob_wstrb_i(internal_uart0_iob_wstrb),
+        .iob_rvalid_o(internal_uart0_iob_rvalid),
+        .iob_rdata_o(internal_uart0_iob_rdata),
+        .iob_ready_o(internal_uart0_iob_ready),
         // rs232_m port: RS232 interface
         .rs232_rxd_i(uart0_rs232_rxd),
         .rs232_txd_o(uart0_rs232_txd),
@@ -86,13 +125,12 @@ module iob_uut #(
         .interrupt_o(uart16550_0_interrupt)
         );
 
-            // Unit Under Test (UUT) UART16550 instance 1.
-        iob_uart16550 uart16550_inst1 (
-            // clk_en_rst_s port: Clock, clock enable and reset
-        .clk_i(clk_i),
-        .cke_i(cke_i),
-        .arst_i(arst_i),
-        // iob_csrs_cbus_s port: Control and Status Registers interface
+            // Convert IOb port from testbench into correct interface for UART CSRs bus
+        iob_universal_converter_iob_iob #(
+        .ADDR_W(5),
+        .DATA_W(DATA_W)
+    ) iob_universal_converter1 (
+            // s_s port: Subordinate port
         .iob_valid_i(uart16550_1_csrs_iob_valid),
         .iob_addr_i(uart16550_1_csrs_iob_addr),
         .iob_wdata_i(uart16550_1_csrs_iob_wdata),
@@ -100,6 +138,30 @@ module iob_uut #(
         .iob_rvalid_o(uart16550_1_csrs_iob_rvalid),
         .iob_rdata_o(uart16550_1_csrs_iob_rdata),
         .iob_ready_o(uart16550_1_csrs_iob_ready),
+        // m_m port: Manager port
+        .iob_valid_o(internal_uart1_iob_valid),
+        .iob_addr_o(internal_uart1_iob_addr),
+        .iob_wdata_o(internal_uart1_iob_wdata),
+        .iob_wstrb_o(internal_uart1_iob_wstrb),
+        .iob_rvalid_i(internal_uart1_iob_rvalid),
+        .iob_rdata_i(internal_uart1_iob_rdata),
+        .iob_ready_i(internal_uart1_iob_ready)
+        );
+
+            // Unit Under Test (UUT) UART16550 instance 1.
+        iob_uart16550 uart16550_inst1 (
+            // clk_en_rst_s port: Clock, clock enable and reset
+        .clk_i(clk_i),
+        .cke_i(cke_i),
+        .arst_i(arst_i),
+        // csrs_cbus_s port: Control and status interface, when selecting the IOb CSR interface.
+        .iob_valid_i(internal_uart1_iob_valid),
+        .iob_addr_i(internal_uart1_iob_addr),
+        .iob_wdata_i(internal_uart1_iob_wdata),
+        .iob_wstrb_i(internal_uart1_iob_wstrb),
+        .iob_rvalid_o(internal_uart1_iob_rvalid),
+        .iob_rdata_o(internal_uart1_iob_rdata),
+        .iob_ready_o(internal_uart1_iob_ready),
         // rs232_m port: RS232 interface
         .rs232_rxd_i(uart1_rs232_rxd),
         .rs232_txd_o(uart1_rs232_txd),

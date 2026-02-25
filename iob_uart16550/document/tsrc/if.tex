@@ -1,55 +1,103 @@
-% SPDX-FileCopyrightText: 2025 IObundle, Lda
+% SPDX-FileCopyrightText: 2026 IObundle, Lda
 %
 % SPDX-License-Identifier: MIT
 %
-% Py2HWSW Version 0.81 has generated this code (https://github.com/IObundle/py2hwsw).
+% Py2HWSW Version 0.81.0 has generated this code (https://github.com/IObundle/py2hwsw).
 
 The interface signals of the core are described in the following tables.
 Note that the ouput signals are registered in the core, while the input signals are not.
+{
+\setlength{\LTcapwidth}{\linewidth} % make sure the caption takes up the whole linewidth
 \begin{xltabular}{\textwidth}{|l|l|r|X|}
-
   \hline
   \rowcolor{iob-green}
   {\bf Name} & {\bf Direction} & {\bf Width} & {\bf Description}  \\ \hline \hline
+  \endfirsthead
+  \hline
+  \caption{Clock, clock enable and reset}
+  \endlastfoot
 
   \input clk_en_rst_s_if_tab
-
-  \caption{Clock, clock enable and reset}
 \end{xltabular}
 \label{clk_en_rst_s_if_tab:is}
+}
 
+{
+\setlength{\LTcapwidth}{\linewidth} % make sure the caption takes up the whole linewidth
 \begin{xltabular}{\textwidth}{|l|l|r|X|}
-
   \hline
   \rowcolor{iob-green}
   {\bf Name} & {\bf Direction} & {\bf Width} & {\bf Description}  \\ \hline \hline
+  \endfirsthead
+  \hline
+  \caption{Control and status interface, when selecting the IOb CSR interface.}
+  \endlastfoot
 
-  \input iob_csrs_cbus_s_if_tab
-
-  \caption{Control and Status Registers interface}
+  \input csrs_cbus_s_if_tab
 \end{xltabular}
-\label{iob_csrs_cbus_s_if_tab:is}
+\label{csrs_cbus_s_if_tab:is}
+}
 
+{
+\setlength{\LTcapwidth}{\linewidth} % make sure the caption takes up the whole linewidth
 \begin{xltabular}{\textwidth}{|l|l|r|X|}
-
   \hline
   \rowcolor{iob-green}
   {\bf Name} & {\bf Direction} & {\bf Width} & {\bf Description}  \\ \hline \hline
+  \endfirsthead
+  \hline
+  \caption{Control and status interface, when selecting the Wishbone CSR interface.}
+  \endlastfoot
+
+  \input csrs_cbus_wb_s_if_tab
+\end{xltabular}
+\label{csrs_cbus_wb_s_if_tab:is}
+}
+
+{
+\setlength{\LTcapwidth}{\linewidth} % make sure the caption takes up the whole linewidth
+\begin{xltabular}{\textwidth}{|l|l|r|X|}
+  \hline
+  \rowcolor{iob-green}
+  {\bf Name} & {\bf Direction} & {\bf Width} & {\bf Description}  \\ \hline \hline
+  \endfirsthead
+  \hline
+  \caption{Control and status interface, when selecting the AXI-Lite CSR interface.}
+  \endlastfoot
+
+  \input csrs_cbus_axil_s_if_tab
+\end{xltabular}
+\label{csrs_cbus_axil_s_if_tab:is}
+}
+
+{
+\setlength{\LTcapwidth}{\linewidth} % make sure the caption takes up the whole linewidth
+\begin{xltabular}{\textwidth}{|l|l|r|X|}
+  \hline
+  \rowcolor{iob-green}
+  {\bf Name} & {\bf Direction} & {\bf Width} & {\bf Description}  \\ \hline \hline
+  \endfirsthead
+  \hline
+  \caption{RS232 interface}
+  \endlastfoot
 
   \input rs232_m_if_tab
-
-  \caption{RS232 interface}
 \end{xltabular}
 \label{rs232_m_if_tab:is}
+}
 
+{
+\setlength{\LTcapwidth}{\linewidth} % make sure the caption takes up the whole linewidth
 \begin{xltabular}{\textwidth}{|l|l|r|X|}
-
   \hline
   \rowcolor{iob-green}
   {\bf Name} & {\bf Direction} & {\bf Width} & {\bf Description}  \\ \hline \hline
+  \endfirsthead
+  \hline
+  \caption{UART16550 interrupt related signals}
+  \endlastfoot
 
   \input interrupt_o_if_tab
-
-  \caption{UART16550 interrupt related signals}
 \end{xltabular}
 \label{interrupt_o_if_tab:is}
+}
