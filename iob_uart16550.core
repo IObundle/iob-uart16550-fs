@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: iobundle:py2hwsw:iob_uart16550:0.1.1
+name: iobundle:py2hwsw:iob_uart16550:0.1.2
 license: MIT
 description : IObundle's adaptation of the UART16550 from https://opencores.org/projects/uart16550.
 
