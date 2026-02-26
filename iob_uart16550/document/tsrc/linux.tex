@@ -1,0 +1,154 @@
+% SPDX-FileCopyrightText: 2026 IObundle, Lda
+%
+% SPDX-License-Identifier: MIT
+%
+% Py2HWSW Version 0.81.0 has generated this code (https://github.com/IObundle/py2hwsw).
+
+
+This section describes the Linux driver for the iob\_uart16550 peripheral.
+It includes details about the main kernel module, the kernel-user space interfaces it provides for interacting with the peripheral's Control and Status Registers (CSRs), and the available tests to verify the driver's functionality.
+
+The driver consists of:
+\begin{itemize}
+    \item A kernel module, implemented in \texttt{iob\_uart16550\_main.c}, which is the core of the driver.
+    \item Three distinct kernel-user space interfaces: \texttt{/dev}, \texttt{ioctl}, and \texttt{sysfs}.
+    \item A set of user space functions with a common API to access the CSRs through any of the interfaces.
+    \item A test suite to validate the driver and the interfaces.
+\end{itemize}
+
+\subsection{Kernel Module}
+\label{sec:linux_kernel_module}
+
+The main source code for the kernel module is located in the \texttt{iob\_uart16550\_main.c} file.
+This module is implemented as a platform driver, which is responsible for probing and initializing the peripheral device based on information from the device tree.
+When the device is detected, the driver maps the peripheral's memory-mapped registers and creates the necessary user space interfaces (\texttt{/dev}, \texttt{ioctl}, and \texttt{sysfs}).
+It also implements the file operations (e.g., \texttt{read}, \texttt{write}, \texttt{ioctl}) for the \texttt{/dev} and \texttt{ioctl} interfaces.
+
+\subsection{User Space Interfaces}
+\label{sec:linux_user_space_interfaces}
+
+The driver provides three distinct interfaces for user space applications to interact with the iob\_uart16550 peripheral: \texttt{/dev}, \texttt{ioctl}, and \texttt{sysfs}.
+All three interfaces use a common set of user space functions to access the CSRs, with function prototypes that are similar to those of the bare-metal drivers, providing a consistent API.
+\ifdefined\DOXYGEN
+The baremetal function prototypes are documented in Section~\ref{sec:baremetal}.
+\fi
+
+The following header files must be included in your user space application to use the API:
+\begin{itemize}
+    \item \texttt{iob\_uart16550\_driver\_files.h}
+    \item \texttt{iob\_uart16550\_csrs.h}
+\end{itemize}
+
+Before using any of the API functions, you must initialize the library by calling the following function:
+\begin{verbatim}
+void iob_uart16550_csrs_init_baseaddr(uint32_t addr);
+\end{verbatim}
+For the \texttt{/dev} and \texttt{ioctl} interfaces, this function opens the device file. For the \texttt{sysfs} interface, this function does nothing.
+
+The following sections describe each of these interfaces in detail.
+
+\subsubsection{/dev Interface}
+\label{sec:linux_dev_interface}
+
+The \texttt{/dev} interface allows direct access to the peripheral's registers through the device file \texttt{/dev/iob\_uart16550}.
+Access to the CSRs is performed by seeking to the appropriate address offset using \texttt{lseek()} and then using \texttt{read()} or \texttt{write()} to access the register.
+
+The following CSRs are available through this interface:
+\begin{itemize}
+    \item \texttt{rbr\_thr\_dll}: Address: \texttt{IOB\_UART16550\_CSRS\_RBR\_THR\_DLL\_ADDR}, Access: RW
+    \item \texttt{ier\_dlm}: Address: \texttt{IOB\_UART16550\_CSRS\_IER\_DLM\_ADDR}, Access: RW
+    \item \texttt{iir\_fcr}: Address: \texttt{IOB\_UART16550\_CSRS\_IIR\_FCR\_ADDR}, Access: RW
+    \item \texttt{lcr}: Address: \texttt{IOB\_UART16550\_CSRS\_LCR\_ADDR}, Access: RW
+    \item \texttt{mcr}: Address: \texttt{IOB\_UART16550\_CSRS\_MCR\_ADDR}, Access: W
+    \item \texttt{lsr}: Address: \texttt{IOB\_UART16550\_CSRS\_LSR\_ADDR}, Access: R
+    \item \texttt{msr}: Address: \texttt{IOB\_UART16550\_CSRS\_MSR\_ADDR}, Access: R
+    \item \texttt{version}: Address: \texttt{IOB\_UART16550\_CSRS\_VERSION\_ADDR}, Access: R
+\end{itemize}
+\subsubsection{ioctl Interface}
+\label{sec:linux_ioctl_interface}
+
+The \texttt{ioctl} interface uses I/O control commands to interact with the peripheral.
+The function prototypes provided for this interface are identical to the \texttt{/dev} interface functions.
+
+The following IOCTL commands are defined for each CSR:
+\begin{itemize}    \item \texttt{WR\_{RBR\_THR\_DLL}}: Write to the rbr\_thr\_dll CSR.
+    \item \texttt{RD\_{RBR\_THR\_DLL}}: Read from the rbr\_thr\_dll CSR.
+    \item \texttt{WR\_{IER\_DLM}}: Write to the ier\_dlm CSR.
+    \item \texttt{RD\_{IER\_DLM}}: Read from the ier\_dlm CSR.
+    \item \texttt{WR\_{IIR\_FCR}}: Write to the iir\_fcr CSR.
+    \item \texttt{RD\_{IIR\_FCR}}: Read from the iir\_fcr CSR.
+    \item \texttt{WR\_{LCR}}: Write to the lcr CSR.
+    \item \texttt{RD\_{LCR}}: Read from the lcr CSR.
+    \item \texttt{WR\_{MCR}}: Write to the mcr CSR.
+    \item \texttt{RD\_{LSR}}: Read from the lsr CSR.
+    \item \texttt{RD\_{MSR}}: Read from the msr CSR.
+    \item \texttt{RD\_{VERSION}}: Read from the version CSR.
+\end{itemize}
+
+\subsubsection{sysfs Interface}
+\label{sec:linux_sysfs_interface}
+
+The \texttt{sysfs} interface exposes the peripheral's registers as files in the system's file system.
+The functions prototypes provided for this interface are identical to the \texttt{/dev} interface functions.
+
+The CSRs are exposed as files in the following directory:
+\begin{verbatim}
+/sys/class/iob_uart16550/iob_uart16550/
+\end{verbatim}
+
+The following files are available for each CSR:
+\begin{itemize}    \item \texttt{rbr\_thr\_dll}: Access the rbr\_thr\_dll CSR. (Mode: RW)
+    \item \texttt{ier\_dlm}: Access the ier\_dlm CSR. (Mode: RW)
+    \item \texttt{iir\_fcr}: Access the iir\_fcr CSR. (Mode: RW)
+    \item \texttt{lcr}: Access the lcr CSR. (Mode: RW)
+    \item \texttt{mcr}: Access the mcr CSR. (Mode: W)
+    \item \texttt{lsr}: Access the lsr CSR. (Mode: R)
+    \item \texttt{msr}: Access the msr CSR. (Mode: R)
+    \item \texttt{version}: Access the version CSR. (Mode: R)
+
+\end{itemize}
+
+\subsection{User Space Application}
+\label{sec:linux_user_space_application}
+
+User space applications can be developed to interact with the peripheral's driver interfaces. An example application, \texttt{user/iob\_uart16550\_user.c}, is provided for some cores.
+Otherwise, the auto-generated test application, \texttt{user/iob\_uart16550\_tests.c}, can serve as a reference for creating custom user space applications.
+
+\paragraph{Building an application}
+User space applications can be built using the \texttt{Makefile} located in the \texttt{user} directory. You need to specify the name of your application's source file (without the \texttt{.c} extension) and the desired interface.
+\begin{verbatim}
+make BIN=<your_app_name> IF=<interface>
+\end{verbatim}
+The \texttt{IF} variable can be set to \texttt{sysfs}, \texttt{dev}, or \texttt{ioctl} to build the application for the corresponding interface. For example, to build an application from a source file named \texttt{my\_app.c}, you would run \texttt{make BIN=my\_app IF=sysfs}.
+
+\paragraph{Running the application}
+To run the application, execute the compiled binary in the target Linux system, replacing \texttt{<your\_app\_name>} and \texttt{<interface>} with the ones you selected during the build:
+\begin{verbatim}
+./<your_app_name>_<interface>
+\end{verbatim}
+
+\subsection{Tests}
+\label{sec:linux_tests}
+
+A test suite is provided to verify the functionality and performance of the driver interfaces.
+The test source code is located in \texttt{user/iob\_uart16550\_tests.c}.
+
+\paragraph{Building the tests}
+The tests can be built using the \texttt{Makefile} in the \texttt{user} directory by setting the \texttt{BIN} variable to \texttt{iob\_uart16550\_tests}:
+\begin{verbatim}
+make BIN=iob_uart16550_tests IF=<interface>
+\end{verbatim}
+The \texttt{IF} variable can be set to \texttt{sysfs}, \texttt{dev}, or \texttt{ioctl} to test the corresponding interface.
+
+\paragraph{Running the tests}
+To run the tests, execute the compiled binary in the target Linux system, replacing \texttt{<interface>} with the one you selected during build:
+\begin{verbatim}
+./iob_uart16550_tests_<interface>
+\end{verbatim}
+
+The test suite includes:
+\begin{itemize}
+    \item \textbf{Functionality tests:} Verify that writing to and reading from Control and Status Registers (CSRs) works correctly.
+    \item \textbf{Error Handling tests:} Simulate faults and verify that appropriate error messages are generated.
+    \item \textbf{Performance tests:} Measure the time taken for a large number of read and write operations to evaluate the interface performance.
+\end{itemize}

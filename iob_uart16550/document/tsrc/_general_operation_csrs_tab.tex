@@ -1,0 +1,18 @@
+% SPDX-FileCopyrightText: 2026 IObundle, Lda
+%
+% SPDX-License-Identifier: MIT
+%
+% Py2HWSW Version 0.81.0 has generated this code (https://github.com/IObundle/py2hwsw).
+
+RBR\_THR\_DLL & RW & 0x0 & 8 & 8 & 0 & RBR (Receiver Buffer Register) when read, THR (Transmitter Holding Register) when written. When LCR.DLAB bit is set, this address accesses the Divisor Latch LSB (DLL). \\* \nobreakhline
+\rowcolor{iob-blue}
+IER\_DLM & RW & 0x1 & 8 & 8 & 0 & Interrupt Enable Register. When LCR.DLAB bit is set, this address accesses the Divisor Latch MSB (DLM). \\* \nobreakhline
+IIR\_FCR & RW & 0x2 & 8 & 8 & 193 & IIR (Interrupt Identification Register) when read, FCR (FIFO Control Register) when written. \\* \nobreakhline
+\rowcolor{iob-blue}
+LCR & RW & 0x3 & 8 & 8 & 3 & Line Control Register. The DLAB bit (MSB) controls access to the Divisor Latch registers. \\ \hline
+MCR & W & 0x4 & 8 & 8 & 0 & Modem Control Register. \\ \hline
+\rowcolor{iob-blue}
+LSR & R & 0x5 & 8 & 8 & 96 & Line Status Register. \\ \hline
+MSR & R & 0x6 & 8 & 8 & 0 & Modem Status Register. \\ \hline
+\rowcolor{iob-blue}
+VERSION & R & 0x8 & 24 & 32 & 000105 & Product version in SemVer format. This 24-bit register uses nibbles to represent decimal numbers using their binary values. The two most significant nibbles represent the major part of the version, followed by two nibbles that represent the minor part. The two least significant nibbles represent the patch version. For example V12.34.56 is represented by 0x123456. \\

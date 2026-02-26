@@ -1,12 +1,12 @@
-# SPDX-FileCopyrightText: 2025 IObundle, Lda
+# SPDX-FileCopyrightText: 2026 IObundle, Lda
 #
 # SPDX-License-Identifier: MIT
 #
-# Py2HWSW Version 0.81 has generated this code (https://github.com/IObundle/py2hwsw).
+# Py2HWSW Version 0.81.0 has generated this code (https://github.com/IObundle/py2hwsw).
 
 NAME=iob_uart16550
 CSR_IF ?=iob
-BUILD_DIR_NAME=iob_uart16550_V0.1
+BUILD_DIR_NAME=iob_uart16550_V0.1.5
 IS_FPGA=0
 
 CONFIG_BUILD_DIR = $(dir $(lastword $(MAKEFILE_LIST)))
